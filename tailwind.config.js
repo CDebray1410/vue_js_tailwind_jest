@@ -15,6 +15,8 @@ module.exports = {
             'textColor1': '#141414',
             'textColor2': '#9A9A9A',
             'light': '#FEFEFE',
+            'error': '#ba1422',
+            'success': '#12b03c',
             'backgroundColor': '#293462',
             'gray': '#bbc2cc',
             'alertColor': '#E63946'

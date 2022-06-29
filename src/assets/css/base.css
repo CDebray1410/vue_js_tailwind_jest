@@ -1,34 +1,38 @@
 :root {
-    --primaryColor: #F24C4C,;
-    --secondaryColor: #EC9B3B;
-    --tercaryColor :'#7D716';
-    --lightSecondaryColor: #7DA2BA;
-    --lightSecondaryColorAdmin: #FFB27D;
-    --textColorLight: #FEFEFE;
-    --textColorDark: #9A9A9A;
-    --light: #FEFEFE;
-    --backgroundColor: #293462;
-    --gray: #bbc2cc;
-    --alertColor: #E63946;
-    --modal-background: rgba(0, 0, 0, 0.6);
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-size: 1rem;
-    background-color: var(--backgroundColor);
-    color: var(--textColorLight);
-  }
-  
-  main {
-    width: 70%;
-    margin: auto;
-    padding: 20px 15px;
-  }
-  
-  main section {
-    margin: 30px 0px;
-  }
+  --primaryColor: #F24C4C,;
+  --secondaryColor: #EC9B3B;
+  --tercaryColor :'#7D716';
+  --lightSecondaryColor: #7DA2BA;
+  --lightSecondaryColorAdmin: #FFB27D;
+  --textColorLight: #FEFEFE;
+  --textColorDark: #9A9A9A;
+  --light: #FEFEFE;
+  --backgroundColor: #293462;
+  --gray: #bbc2cc;
+  --alertColor: #E63946;
+  --modal-background: rgba(0, 0, 0, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1rem;
+  background-color: var(--backgroundColor);
+  color: var(--textColorLight);
+}
+
+main {
+  width: 70%;
+  margin: auto;
+  padding: 20px 15px;
+}
+
+main section {
+  margin: 30px 0px;
+}
+
+input, select {
+  color: black !important;
+}
