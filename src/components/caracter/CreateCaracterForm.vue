@@ -44,7 +44,7 @@
                 </select>
             </div>
         </div>
-        <button v-on:click="this.createCaracter($event)">Créer un personnage</button>
+        <button id="createCaracterButton" v-on:click="this.createCaracter($event)">Créer un personnage</button>
     </form>
 </template>
 
@@ -97,6 +97,7 @@ export default {
                 caracter.awarness = this.awarness,
                 caracter.caracterType = "npc"
             }
+
             this.$emit('createdCaracter', caracter);
         }
     }

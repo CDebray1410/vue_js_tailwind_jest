@@ -1,0 +1,21 @@
+.caracter_table {
+    background-color: black;
+    color: white;
+    border: 1px white solid;
+}
+
+.caracter_table tr {
+    padding: 10px 12px;
+    border-bottom: 2px white solid;
+}
+.caracter_table tr:first-child {
+    border-bottom: 1px white solid;
+}
+.caracter_table tr th {
+    font-style: bold;
+    padding: 5px 10px;
+}
+
+.caracter_table tr td {
+    padding: 5px 10px;
+}

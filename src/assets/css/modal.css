@@ -1,0 +1,47 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+    overflow: auto;
+    background-color: fade(#000, 88%);
+    animation-duration: .35s;
+    animation-fill-mode: both;
+    animation-name: fadeIn;
+    
+}
+.modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0;
+    border: none;
+    color: #ccc;
+    background-color: transparent;
+    background-image: none;
+    
+}
+.modal__close:focus {
+    outline: 0;
+}
+.modal__title {
+    margin: 0 0 15px;
+}
+.modal__content {
+    padding: 10px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -12,6 +12,67 @@
             </div>
 
             <CreateCaracterForm @createdCaracter="createCaracter" />
+
+            <button data-modal-trigger="infos-modal" class="demo__btn demo__btn--secondary">Show caracters</button>
+            
+            <div class="modal" data-modal-name="infos-modal" data-modal-dismiss>
+                <div class="modal__content">
+                    <div>
+                        <caption class="m-auto">Players</caption>
+                        <table class="caracter_table">
+                            <tr>
+                                <th>name</th>
+                                <th>life</th>
+                                <th>attack</th>
+                                <th>defense</th>
+                                <th>agility</th>
+                                <th>speed</th>
+                                <th>luck</th>
+                            </tr>
+                            <tr v-for="playerCaracter in playerCaracters" v-bind:key="playerCaracter.id">
+                                <td>{{ playerCaracter.name }}</td>
+                                <td>{{playerCaracter.life}}</td>
+                                <td>{{playerCaracter.attack}}</td>
+                                <td>{{playerCaracter.defense}}</td>
+                                <td>{{playerCaracter.agility}}</td>
+                                <td>{{playerCaracter.speed}}</td>
+                                <td>{{playerCaracter.luck}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div>
+                        <caption class="m-auto">Npcs</caption>
+                        <table class="caracter_table">
+                            <tr>
+                                <th>name</th>
+                                <th>behaviour</th>
+                                <th>background</th>
+                                <th>awarness</th>
+                                <th>life</th>
+                                <th>attack</th>
+                                <th>defense</th>
+                                <th>agility</th>
+                                <th>speed</th>
+                                <th>luck</th>
+                            </tr>
+                            <tr v-for="npcCaracter in npcCaracters" v-bind:key="npcCaracter.id">
+                                <td>{{ npcCaracter.name }}</td>
+                                <td>{{npcCaracter.behaviour}}</td>
+                                <td>{{npcCaracter.background}}</td>
+                                <td>{{npcCaracter.awarness}}</td>
+                                <td>{{npcCaracter.life}}</td>
+                                <td>{{npcCaracter.attack}}</td>
+                                <td>{{npcCaracter.defense}}</td>
+                                <td>{{npcCaracter.agility}}</td>
+                                <td>{{npcCaracter.speed}}</td>
+                                <td>{{npcCaracter.luck}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 </template>
@@ -21,6 +82,14 @@ import CreateCaracterForm from '../components/caracter/CreateCaracterForm.vue';
 
 export default {
     name: "HomeView",
+    computed: {
+        playerCaracters() {
+            return this.$store.getters.getPlayerCaracters;
+        },
+        npcCaracters() {
+            return this.$store.getters.getNpcCaracters;
+        }
+    },
     components: {
         CreateCaracterForm
     },
