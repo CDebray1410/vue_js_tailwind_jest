@@ -68,6 +68,36 @@ const store = createStore({
                 "situation": null,
                 "npc": null,
             },
+            situations: [
+                {
+                    "npcId": 1,
+                    "lines": [
+                        {
+                            "type": "quest",
+                            "content": "Go get my poney into the lake !",
+                            "reward": "Combat turtle"
+                        },
+                        {
+                            "type": "infos",
+                            "content": "Today is à sunny day !",
+                        }
+                    ]
+                }
+            ],
+            player: {
+                "name": "Player",
+                "life": 10,
+                "attack": 6,
+                "defense": 5,
+                "speed": 4,
+                "agility": 1,
+                "luck": 1,
+                "items": []
+            },
+            currentSituation: {
+                "situation": null,
+                "npc": null,
+            },
         }
     },
     getters: {
@@ -83,21 +113,40 @@ const store = createStore({
         getNpcCaracterById: (state) => (id) => {
             return state.npcCaracters.find(npcCaracter => npcCaracter.id === id)
         },
+        getCurrentPlayer(state) {
+            return state.player;
+        },
+        getSituations(state) {
+            return state.situations;
+        },
+        getCurrentSituation(state) {
+            return state.currentSituation;
+        },
     },
     mutations: {
-        STORE_PLAYER_CARACTERS (state, playerCaracters) {
-            state.playerCaracters = playerCaracters;
+        STORE_PLAYER_CARACTER (state, caracter) {
+            let playerCaractersArray = state.playerCaracters;
+            playerCaractersArray.push(caracter)
+            state.playerCaracters = playerCaractersArray;
         },
-        STORE_NPC_CARACTERS ({ state } ,npcCaracters) {
-            state.npcCaracters = npcCaracters;
+        STORE_NPC_CARACTER (state ,caracter) {
+            let npcCaractersArray = state.npcCaracters;
+            npcCaractersArray.push(caracter)
+            state.npcCaracters = npcCaractersArray;
+        },
+        STORE_CURRENT_SITUATION(state, situation) {
+            state.currentSituation = situation;
         }
     },
     actions: {
-        storePlayerCaracters({ commit }, playerCaracters) {
-            commit('STORE_PLAYER_CARACTERS', playerCaracters)
+        storePlayerCaracter({ commit }, caracter) {
+            commit('STORE_PLAYER_CARACTER', caracter)
         },
-        storeNpcCaracters({ commit }, npcCaracters) {
-            commit('STORE_NPC_CARACTERS', npcCaracters)
+        storeNpcCaracter({ commit }, caracter) {
+            commit('STORE_NPC_CARACTER', caracter)
+        },
+        storeCurrentSituation({ commit }, situation) {
+            commit('STORE_CURRENT_SITUATION', situation)
         },
     }
 })  

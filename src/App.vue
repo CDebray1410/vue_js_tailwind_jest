@@ -8,10 +8,6 @@ import { RouterLink, RouterView } from "vue-router";
   </header>
 
   <RouterView />
-
-  <div class="modal" id="modal__info" data-modal-name="infos-modal" data-modal-dismiss>
-    <div class="modal__content" id="modal__info__content"></div>
-  </div>
 </template>
 
 <style>
@@ -19,10 +15,7 @@ import { RouterLink, RouterView } from "vue-router";
 </style>
 
 <script>
-import initModal from './assets/js/modal';
 import Navbar from './components/generic/Navbar.vue';
-
-initModal();
 
 export default {
   name: "App",
