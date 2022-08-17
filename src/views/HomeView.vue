@@ -1,8 +1,17 @@
 <template>
     <main>
         <h1 class="text-center text-xl">Bienvenue sur Vue js</h1>
-        <section class="show_container flex">
-            <div id="situation_dialog">
+        <section class="show_container flex"  v-if="currentSituation">
+            <div id="situation_dialog" v-if="currentSituation">
+                <p class="text-lg" :data-pnj-id="currentSituation.npc.id">{{currentSituation.npc.name}}</p>
+                <div>
+                    <ol>
+                        <li v-for="line in currentSituation.lines" :key="line.content" :class="[{ 'text-tercaryColor': line.type === 'quest' }]">
+                            {{ line.content }}
+                        </li>
+
+                    </ol>
+                </div>
             </div>
             <div id="situation_action">
                 <button data-type="attack" v-on:click="this.clickAction($event)">Attack</button>
@@ -12,63 +21,40 @@
             </div>
 
             <CreateCaracterForm @createdCaracter="createCaracter" />
-
-
         </section>
 
+        <section v-if="player">
+            <caption class="m-auto">Current player</caption>
+            <table class="caracter_table">
+                <tr>
+                    <th>name</th>
+                    <th>life</th>
+                    <th>attack</th>
+                    <th>defense</th>
+                    <th>agility</th>
+                    <th>speed</th>
+                    <th>luck</th>
+                </tr>
+                <tr>
+                    <td>{{player.name }}</td>
+                    <td>{{player.life}}</td>
+                    <td>{{player.attack}}</td>
+                    <td>{{player.defense}}</td>
+                    <td>{{player.agility}}</td>
+                    <td>{{player.speed}}</td>
+                    <td>{{player.luck}}</td>
+                </tr>
+            </table>
+        </section>
         <section>
             <div>
-                <caption class="m-auto">Players</caption>
-                <table class="caracter_table">
-                    <tr>
-                        <th>name</th>
-                        <th>life</th>
-                        <th>attack</th>
-                        <th>defense</th>
-                        <th>agility</th>
-                        <th>speed</th>
-                        <th>luck</th>
-                    </tr>
-                    <tr v-for="playerCaracter in playerCaracters" v-bind:key="playerCaracter.id">
-                        <td>{{ playerCaracter.name }}</td>
-                        <td>{{playerCaracter.life}}</td>
-                        <td>{{playerCaracter.attack}}</td>
-                        <td>{{playerCaracter.defense}}</td>
-                        <td>{{playerCaracter.agility}}</td>
-                        <td>{{playerCaracter.speed}}</td>
-                        <td>{{playerCaracter.luck}}</td>
-                    </tr>
-                </table>
+                <caption>Choisissez un personnage</caption>
+                <CaractersInfosTable :caracters="playerCaracters" />
             </div>
 
             <div>
                 <caption class="m-auto">Npcs</caption>
-                <table class="caracter_table">
-                    <tr>
-                        <th>name</th>
-                        <th>behaviour</th>
-                        <th>background</th>
-                        <th>awarness</th>
-                        <th>life</th>
-                        <th>attack</th>
-                        <th>defense</th>
-                        <th>agility</th>
-                        <th>speed</th>
-                        <th>luck</th>
-                    </tr>
-                    <tr v-for="npcCaracter in npcCaracters" v-bind:key="npcCaracter.id">
-                        <td>{{ npcCaracter.name }}</td>
-                        <td>{{npcCaracter.behaviour}}</td>
-                        <td>{{npcCaracter.background}}</td>
-                        <td>{{npcCaracter.awarness}}</td>
-                        <td>{{npcCaracter.life}}</td>
-                        <td>{{npcCaracter.attack}}</td>
-                        <td>{{npcCaracter.defense}}</td>
-                        <td>{{npcCaracter.agility}}</td>
-                        <td>{{npcCaracter.speed}}</td>
-                        <td>{{npcCaracter.luck}}</td>
-                    </tr>
-                </table>
+                <CaractersInfosTable :caracters="npcCaracters" :isNpcList="true" />
             </div>
         </section>
     </main>
@@ -76,6 +62,7 @@
 
 <script>
 import CreateCaracterForm from '../components/caracter/CreateCaracterForm.vue';
+import CaractersInfosTable from '../components/caracter/CaractersInfosTable.vue';
 
 export default {
     name: "HomeView",
@@ -93,43 +80,18 @@ export default {
             return this.$store.getters.getSituations;
         },
         currentSituation() {
-            return this.$store.getters.getCurrentSituation;
+            return this.$store.getters.getSituationsByType("starter");
         }
     },
     components: {
-        CreateCaracterForm
+        CreateCaracterForm,
+        CaractersInfosTable
     },
     props: {},
     mounted() {
-        this.getRandomSituation()
+        console.log(this.currentSituation)
     },
     methods: {
-        // REFACTO loop througth each pnjs in order to display every dialogue of every involved caracters
-        getRandomSituation() {
-            let situation = this.situations[Math.floor(Math.random()*this.situations.length)];
-            let npc = this.$store.getters.getNpcCaracterById(situation.npcId);
-            this.$store.dispatch('storeCurrentSituation', {
-                "situation": situation,
-                "npc": npc,
-            });
-
-            let lines = ``;
-            if (npc.behaviour === "friendly") {
-                situation.lines.forEach(line => {
-                    let lineContent = line.type === "quest" ? `<li class="text-tercaryColor">${line.content}</li>` : `<li>${line.content}</li>`
-                    lines = lines + lineContent;
-                })
-    
-                document.getElementById('situation_dialog').innerHTML = `<div>
-                    <p class="text-lg" data-pnj-id="${npc.id}">${npc.name}</p>
-                    <div>
-                        <ol>
-                            ${lines}
-                        </ol>
-                    </div>
-                </div>`;
-            }
-        },
         clickAction(event) {
             let actionType = event.target.dataset.type;
             let chanceNumber = Math.floor(Math.random() * 11);

@@ -70,7 +70,24 @@ const store = createStore({
             },
             situations: [
                 {
-                    "npcId": 1,
+                    "id": 1,
+                    "npc": {
+                        "id": 1,
+                        "name": "Valou",
+                        "behaviour": "friendly",
+                        "background": "villager",
+                        "awarness": "none",
+                        "life": 5,
+                        "attack": 2,
+                        "defense": 1,
+                        "agility": 1,
+                        "speed": 3,
+                        "luck": 1,
+                        // REFACTO add infos / data / description to items
+                        "items": [
+                            "bread"
+                        ]
+                    },
                     "lines": [
                         {
                             "type": "quest",
@@ -81,19 +98,11 @@ const store = createStore({
                             "type": "infos",
                             "content": "Today is à sunny day !",
                         }
-                    ]
+                    ],
+                    "situationType": "starter"
                 }
             ],
-            player: {
-                "name": "Player",
-                "life": 10,
-                "attack": 6,
-                "defense": 5,
-                "speed": 4,
-                "agility": 1,
-                "luck": 1,
-                "items": []
-            },
+            player: null,
             currentSituation: {
                 "situation": null,
                 "npc": null,
@@ -119,6 +128,9 @@ const store = createStore({
         getSituations(state) {
             return state.situations;
         },
+        getSituationsByType: (state) => (situationType) => {
+            return state.situations.find(situation => situation.situationType === situationType)
+        },
         getCurrentSituation(state) {
             return state.currentSituation;
         },
@@ -136,6 +148,9 @@ const store = createStore({
         },
         STORE_CURRENT_SITUATION(state, situation) {
             state.currentSituation = situation;
+        },
+        SET_CURRENT_PLAYER_CARACTER(state, caracter) {
+            state.player = caracter;
         }
     },
     actions: {
@@ -148,6 +163,9 @@ const store = createStore({
         storeCurrentSituation({ commit }, situation) {
             commit('STORE_CURRENT_SITUATION', situation)
         },
+        setCurrentPlayerCaracter({ commit }, caracter) {
+            commit('SET_CURRENT_PLAYER_CARACTER', caracter);
+        }
     }
 })  
 
